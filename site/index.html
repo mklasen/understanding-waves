@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Understanding Waves — and why the tide is something else entirely</title>
+<meta name="description" content="An interactive field guide to ocean waves and tides. Play with the wind, the sea floor, the Moon and the Sun.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <canvas id="hero-ocean" aria-label="A live, simulated sea"></canvas>
+  <div class="hero-copy">
+    <p class="kicker">An interactive field guide to the sea</p>
+    <h1>There's never<br>the same wave twice.</h1>
+    <p class="lede">Why? Where do waves actually come from — and why do they keep rolling in, even while the tide goes out? Play with the wind, the sea floor, the Moon and the Sun, and see for yourself.</p>
+  </div>
+  <p class="hero-caption" id="hero-caption">This sea is <b>48 waves</b> added together, running live. The pattern you're looking at has never existed before.</p>
+  <a class="scroll-cue" href="#crowd">Begin <span>↓</span></a>
+</header>
+
+<nav class="toc" aria-label="Chapters">
+  <a href="#crowd"><i>1</i>Every wave is a crowd</a>
+  <a href="#wind"><i>2</i>Making waves</a>
+  <a href="#energy"><i>3</i>Energy, not water</a>
+  <a href="#swell"><i>4</i>Swell</a>
+  <a href="#tides"><i>5</i>Tides</a>
+  <a href="#beach"><i>6</i>The beach</a>
+  <a href="#ripples"><i>7</i>Ripples</a>
+  <a href="#summary"><i>8</i>Waves vs tides</a>
+</nav>
+
+<main>
+
+<!-- ============ 1. SUPERPOSITION ============ -->
+<section class="chapter" id="crowd">
+  <div class="text">
+    <p class="num">1</p>
+    <h2>Every wave is a crowd</h2>
+    <p>Look at any patch of sea and you're not seeing <em>a</em> wave. You're seeing dozens of them — long and short, fast and slow, from slightly different directions — all passing through the same water at the same time, and <strong>adding up</strong>.</p>
+    <p>Where crest meets crest, the sea leaps up. Where crest meets trough, they cancel and the water goes briefly flat. Physicists call this <em>superposition</em>. Surfers call it <em>sets</em>.</p>
+    <p class="try">Drag the slider and add waves one by one. Watch how long you'd have to wait for the pattern to repeat.</p>
+    <aside class="aha" id="crowd-aha">
+      <p>With one wave, the pattern repeats every few seconds. With two, you wait until both line up again. Every extra wave <em>multiplies</em> the wait.</p>
+      <p>A real sea holds thousands of waves whose rhythms aren't neat fractions of each other — so the wait becomes <strong>forever</strong>. That's the physics behind the poetry: the exact sea in front of you has never happened before, and never will again.</p>
+    </aside>
+  </div>
+  <div class="stage">
+    <canvas id="crowd-canvas" class="panel-canvas tall"></canvas>
+    <div class="controls">
+      <label class="ctl">
+        <span class="ctl-label">Waves added together <output id="crowd-n-out">1</output></span>
+        <input type="range" id="crowd-n" min="1" max="12" step="1" value="1">
+      </label>
+      <div class="btn-row">
+        <button id="crowd-shuffle" class="btn">Shuffle the waves</button>
+        <button id="crowd-real" class="btn ghost">Make the periods "messy" like a real sea</button>
+      </div>
+    </div>
+    <div class="readout big">
+      <span class="ro-label">This exact pattern repeats every</span>
+      <span class="ro-value" id="crowd-repeat">8 seconds</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. WIND ============ -->
+<section class="chapter" id="wind">
+  <div class="text">
+    <p class="num">2</p>
+    <h2>Making waves: the wind's three ingredients</h2>
+    <p>Almost every wave you will ever see was made by <strong>wind</strong>. Air dragging over water snags on tiny ripples, shoves at their backs, and hands them energy. Ripples become wavelets, wavelets become waves, waves become swells.</p>
+    <p>How big they get depends on three things:</p>
+    <ul class="ingredients">
+      <li><b>Wind speed</b> — how hard the air pushes.</li>
+      <li><b>Duration</b> — how long it keeps pushing.</li>
+      <li><b>Fetch</b> — how much open water it blows across.</li>
+    </ul>
+    <p>The <em>weakest</em> ingredient sets the limit. A gale over a lake only makes chop — it runs out of water. A short squall over the ocean runs out of time. Only a strong wind, blowing for days, over thousands of kilometres of sea, builds the giants.</p>
+    <p class="try">Try a <button class="link" data-preset="lake">gale on a lake</button>, a <button class="link" data-preset="squall">quick squall at sea</button>, or a <button class="link" data-preset="southern">Southern Ocean storm</button>.</p>
+  </div>
+  <div class="stage">
+    <div class="ocean-wrap">
+      <canvas id="wind-ocean" class="ocean-canvas"></canvas>
+      <div class="ocean-badge" id="wind-badge">Force 4 · Moderate breeze</div>
+    </div>
+    <canvas id="wind-profile" class="panel-canvas short" aria-label="Side view of the waves with a person for scale"></canvas>
+    <div class="controls three">
+      <label class="ctl">
+        <span class="ctl-label">Wind speed <output id="wind-u-out"></output></span>
+        <input type="range" id="wind-u" min="0" max="32" step="0.5" value="8">
+      </label>
+      <label class="ctl">
+        <span class="ctl-label">Duration <output id="wind-t-out"></output></span>
+        <input type="range" id="wind-t" min="0" max="1" step="0.001" value="0.55">
+      </label>
+      <label class="ctl">
+        <span class="ctl-label">Fetch <output id="wind-x-out"></output></span>
+        <input type="range" id="wind-x" min="0" max="1" step="0.001" value="0.55">
+      </label>
+    </div>
+    <div class="readout grid4">
+      <div><span class="ro-label">Wave height</span><span class="ro-value" id="wind-hs">–</span></div>
+      <div><span class="ro-label">Period</span><span class="ro-value" id="wind-tp">–</span></div>
+      <div><span class="ro-label">Wavelength</span><span class="ro-value" id="wind-l">–</span></div>
+      <div><span class="ro-label">Crest speed</span><span class="ro-value" id="wind-c">–</span></div>
+    </div>
+    <div class="limit-bar">
+      <div class="limit-track"><div class="limit-fill" id="wind-progress"></div></div>
+      <p id="wind-why" class="why"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. ENERGY ============ -->
+<section class="chapter" id="energy">
+  <div class="text">
+    <p class="num">3</p>
+    <h2>A wave is energy, not water</h2>
+    <p>Here's the strangest thing about a wave: the water hardly goes anywhere.</p>
+    <p>A wave is <strong>energy passing through water</strong> — like a stadium wave passing through a crowd. Nobody leaves their seat. Each bit of water just rolls around a small loop and comes back to almost where it started. Watch the duck: it bobs in circles while the crests race past.</p>
+    <p>The loops shrink fast with depth. Half a wavelength down, the water barely moves at all — which is why submarines simply dive to ride out a storm.</p>
+    <p>And because waves carry energy rather than water, they can cross whole oceans. Which brings us to the waves that arrive on a perfectly calm day…</p>
+    <p class="try">Switch to shallow water and watch the loops squash into ellipses: the wave has started to <em>feel the bottom</em>. Remember that — it's what makes waves break.</p>
+  </div>
+  <div class="stage">
+    <canvas id="energy-canvas" class="panel-canvas tall"></canvas>
+    <div class="controls three">
+      <label class="ctl">
+        <span class="ctl-label">Wave height <output id="en-h-out"></output></span>
+        <input type="range" id="en-h" min="0.2" max="4" step="0.1" value="2">
+      </label>
+      <label class="ctl">
+        <span class="ctl-label">Period <output id="en-t-out"></output></span>
+        <input type="range" id="en-t" min="3" max="14" step="0.5" value="7">
+      </label>
+      <label class="ctl">
+        <span class="ctl-label">Water depth <output id="en-d-out"></output></span>
+        <input type="range" id="en-d" min="0" max="1" step="0.001" value="1">
+      </label>
+    </div>
+    <div class="readout grid3">
+      <div><span class="ro-label">The crest travels</span><span class="ro-value" id="en-c">–</span></div>
+      <div><span class="ro-label">The duck travels</span><span class="ro-value" id="en-drift">–</span></div>
+      <div><span class="ro-label">Motion fades by</span><span class="ro-value" id="en-depth">–</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. SWELL ============ -->
+<section class="chapter" id="swell">
+  <div class="text">
+    <p class="num">4</p>
+    <h2>Swell: messages from distant storms</h2>
+    <p>So why are there waves on a windless morning? Because they were made <strong>somewhere else</strong>, days ago.</p>
+    <p>Once waves leave the storm that made them, they sort themselves out. <strong>Long waves travel faster than short ones</strong>, so they outrun the rest and arrive first: smooth, evenly spaced lines called <em>swell</em>. The short, choppy waves lag behind and slowly fade.</p>
+    <p>This is why there are <em>always</em> waves at the coast. Somewhere on the planet a storm is blowing, and its swell is crossing the ocean toward you — whatever the weather is doing where you stand.</p>
+    <p class="try">Press play. Then move the storm further away and watch the swell spread out — the longest waves arrive first.</p>
+  </div>
+  <div class="stage">
+    <canvas id="swell-canvas" class="panel-canvas tall"></canvas>
+    <div class="controls three">
+      <label class="ctl">
+        <span class="ctl-label">Storm wind <output id="sw-u-out"></output></span>
+        <input type="range" id="sw-u" min="12" max="32" step="0.5" value="22">
+      </label>
+      <label class="ctl">
+        <span class="ctl-label">Storm lasts <output id="sw-dur-out"></output></span>
+        <input type="range" id="sw-dur" min="6" max="72" step="1" value="30">
+      </label>
+      <label class="ctl">
+        <span class="ctl-label">Distance to your beach <output id="sw-x-out"></output></span>
+        <input type="range" id="sw-x" min="300" max="10000" step="50" value="3500">
+      </label>
+    </div>
+    <div class="timeline">
+      <button id="sw-play" class="btn round" aria-label="Play">▶</button>
+      <input type="range" id="sw-time" min="0" max="1" step="0.0005" value="0" aria-label="Time since the storm began">
+      <output id="sw-time-out">Day 0</output>
+    </div>
+    <div class="readout" id="sw-readout"><span class="ro-label">At your beach</span><span class="ro-value small" id="sw-now">Flat calm. The storm's waves haven't arrived yet.</span></div>
+  </div>
+</section>
+
+<!-- ============ 5. TIDES ============ -->
+<section class="chapter" id="tides">
+  <div class="text">
+    <p class="num">5</p>
+    <h2>Tides: a different thing entirely</h2>
+    <p>Waves are fast — a crest every few seconds. The <strong>tide</strong> is something else: the whole sea slowly rising and falling, about twice a day. It isn't made by wind. It's made by <strong>gravity</strong>.</p>
+    <p>The Moon pulls the near side of Earth a little harder than the centre, and the centre a little harder than the far side. That difference <em>stretches</em> the oceans into an egg shape: one bulge facing the Moon, and a second one on the opposite side.</p>
+    <p>Earth spins underneath both bulges once a day — so most coasts get <strong>two high tides and two low tides</strong> a day. The Moon moves along its orbit meanwhile, so the tides come about <strong>50 minutes later</strong> each day.</p>
+    <p>The Sun does the same thing at about half the strength. When Sun and Moon line up — at new and full moon — their bulges add up: <strong>spring tides</strong> (nothing to do with the season). At half moon they pull at right angles and partly cancel: <strong>neap tides</strong>.</p>
+    <p class="try">Scrub through a month. Switch off the Moon, then the Sun. Turn on <em>the stretch</em> to see the forces that make the bulges.</p>
+  </div>
+  <div class="stage">
+    <canvas id="tide-canvas" class="panel-canvas square"></canvas>
+    <div class="controls">
+      <div class="btn-row toggles">
+        <label class="toggle"><input type="checkbox" id="td-moon" checked><span>Moon</span></label>
+        <label class="toggle"><input type="checkbox" id="td-sun" checked><span>Sun</span></label>
+        <label class="toggle"><input type="checkbox" id="td-force"><span>Show the stretch</span></label>
+      </div>
+    </div>
+    <div class="timeline">
+      <button id="td-play" class="btn round" aria-label="Play">▶</button>
+      <input type="range" id="td-time" min="0" max="708.7" step="0.05" value="0" aria-label="Time through the lunar month">
+      <output id="td-time-out"></output>
+    </div>
+    <canvas id="tide-chart" class="panel-canvas chart"></canvas>
+    <div class="readout"><span class="ro-label" id="td-phase">New moon</span><span class="ro-value small" id="td-now"></span></div>
+  </div>
+</section>
+
+<!-- ============ 6. BEACH ============ -->
+<section class="chapter" id="beach">
+  <div class="text">
+    <p class="num">6</p>
+    <h2>The beach: where waves and tides meet</h2>
+    <p>Now bring it ashore. As swell runs into shallow water it starts to <strong>feel the bottom</strong>. The front slows down, the waves behind catch up, the wavelength shortens — and because the energy has nowhere else to go, the waves grow <em>taller</em>.</p>
+    <p>A wave can only stand about as tall as the water is deep. When it reaches roughly <strong>0.8 × the depth</strong>, the crest outruns its base and it <strong>breaks</strong>. Gentle slopes make long, crumbling <em>spilling</em> waves; steeper ones make hollow, curling <em>plungers</em>; very steep ones just <em>surge</em> up the shore.</p>
+    <p>Now let the tide go out. The waves keep coming. The tide only moves the <em>stage</em> — the place where waves break slides up and down the beach — while the swell, made by winds far away, keeps arriving on its own clock.</p>
+    <p class="try">Press <em>Run the tide</em> and watch the surf zone wander across the beach while the waves keep rolling in. Try the sandbar and the reef.</p>
+  </div>
+  <div class="stage">
+    <canvas id="beach-canvas" class="panel-canvas tall"></canvas>
+    <div class="controls">
+      <div class="seg" role="radiogroup" aria-label="Seabed shape" id="bc-bed">
+        <button data-bed="gentle" class="on">Gentle beach</button>
+        <button data-bed="steep">Steep beach</button>
+        <button data-bed="bar">Sandbar</button>
+        <button data-bed="reef">Reef</button>
+      </div>
+    </div>
+    <div class="controls three">
+      <label class="ctl">
+        <span class="ctl-label">Swell height <output id="bc-h-out"></output></span>
+        <input type="range" id="bc-h" min="0.3" max="4" step="0.1" value="1.4">
+      </label>
+      <label class="ctl">
+        <span class="ctl-label">Swell period <output id="bc-t-out"></output></span>
+        <input type="range" id="bc-t" min="5" max="18" step="0.5" value="11">
+      </label>
+      <label class="ctl">
+        <span class="ctl-label">Tide <output id="bc-tide-out"></output></span>
+        <input type="range" id="bc-tide" min="-1.6" max="1.6" step="0.01" value="0">
+      </label>
+    </div>
+    <div class="btn-row">
+      <button id="bc-run" class="btn">Run the tide ▶</button>
+    </div>
+    <div class="readout grid3">
+      <div><span class="ro-label">Waves break in</span><span class="ro-value" id="bc-depth">–</span></div>
+      <div><span class="ro-label">Breaker type</span><span class="ro-value" id="bc-type">–</span></div>
+      <div><span class="ro-label">Slowed from → to</span><span class="ro-value" id="bc-speed">–</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. RIPPLES ============ -->
+<section class="chapter" id="ripples">
+  <div class="text">
+    <p class="num">7</p>
+    <h2>The smallest waves: where it all begins</h2>
+    <p>Two forces pull a disturbed sea back to flat. For big waves it's <strong>gravity</strong>. For the tiniest ripples — shorter than about 1.7 cm — it's <strong>surface tension</strong>, the "skin" of the water.</p>
+    <p>Those <em>capillary ripples</em> are where every wave starts. Glassy water gives the wind nothing to grip. The first gust raises a shimmer of ripples — sailors call them <em>cat's paws</em> — and those give the next gust something to push on. Energy then flows to longer and longer waves, all the way up to ocean swell.</p>
+    <p>Notice the curious dip: there is a <strong>slowest possible wave</strong>, about 23 cm/s at 1.7 cm long. Anything shorter is driven faster by surface tension; anything longer, by gravity.</p>
+    <p class="try">Slide across nine powers of ten — from a 1 mm ripple to a tsunami.</p>
+  </div>
+  <div class="stage">
+    <canvas id="ripple-canvas" class="panel-canvas tall"></canvas>
+    <div class="controls">
+      <label class="ctl">
+        <span class="ctl-label">Wavelength <output id="rp-l-out"></output></span>
+        <input type="range" id="rp-l" min="-3" max="5.3" step="0.01" value="-1.77">
+      </label>
+    </div>
+    <div class="readout grid3">
+      <div><span class="ro-label">Speed</span><span class="ro-value" id="rp-c">–</span></div>
+      <div><span class="ro-label">Restoring force</span><span class="ro-value" id="rp-force">–</span></div>
+      <div><span class="ro-label">You'd see it as</span><span class="ro-value small" id="rp-what">–</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. SUMMARY ============ -->
+<section class="summary" id="summary">
+  <p class="num">8</p>
+  <h2>Waves vs tides, in one breath</h2>
+  <div class="cards">
+    <article class="card wave">
+      <h3>Waves</h3>
+      <dl>
+        <dt>Made by</dt><dd>Wind, blowing over water (speed × duration × fetch)</dd>
+        <dt>Rhythm</dt><dd>Seconds — a crest every 2 to 20 s</dd>
+        <dt>Size</dt><dd>Centimetres to hundreds of metres long</dd>
+        <dt>Travel</dt><dd>Thousands of km as swell, long ones fastest</dd>
+        <dt>What you see</dt><dd>The surf breaking on the beach — never twice the same</dd>
+      </dl>
+    </article>
+    <article class="card tide">
+      <h3>Tides</h3>
+      <dl>
+        <dt>Made by</dt><dd>Gravity of the Moon and Sun, plus Earth's spin</dd>
+        <dt>Rhythm</dt><dd>Hours — high water about every 12 h 25 min</dd>
+        <dt>Size</dt><dd>A bulge half the planet wide</dd>
+        <dt>Travel</dt><dd>Sweeps around the globe once a day</dd>
+        <dt>What you see</dt><dd>The whole sea creeping up and down the beach — and the surf moving with it</dd>
+      </dl>
+    </article>
+  </div>
+  <p class="closing">Every wave you've watched was a crowd of waves, carrying energy from a wind that may have blown days ago, a world away — riding on a sea lifted and lowered by the Moon. The next one will be different. They always are.</p>
+  <p class="foot">Built with linear wave theory, JONSWAP wind-wave growth and the equilibrium tide — simplified to be felt, accurate enough to teach. <a href="DECISIONS.md">How it's modelled</a>.</p>
+</section>
+
+</main>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

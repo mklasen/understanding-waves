@@ -1,0 +1,21 @@
+name: understanding-waves
+services:
+  app:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    networks: [web]
+    working_dir: /usr/share/nginx/html
+    volumes:
+      - ./site:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    labels:
+      - traefik.enable=true
+      - 'traefik.http.routers.understanding-waves.rule=Host(`understanding-waves.helios.users.ctx7.dev`)'
+      - traefik.http.routers.understanding-waves.entrypoints=websecure
+      - traefik.http.routers.understanding-waves.tls=true
+      - traefik.http.routers.understanding-waves.tls.certresolver=cloudflare
+      - 'traefik.http.routers.understanding-waves.tls.domains[0].main=helios.users.ctx7.dev'
+      - 'traefik.http.routers.understanding-waves.tls.domains[0].sans=*.helios.users.ctx7.dev'
+      - traefik.http.services.understanding-waves.loadbalancer.server.port=80
+networks:
+  web: { external: true }
