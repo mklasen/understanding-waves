@@ -36,6 +36,10 @@
   ],
   "activity": [
     {
+      "at": "2026-11-05T16:17:01.406Z",
+      "text": "Ch1 repeat-time readout now explains itself (user found '4.7 years' cryptic)"
+    },
+    {
       "at": "2026-11-05T15:56:47.012Z",
       "text": "QA in real browser: all chapters interactive; storm/reef/neap scenarios verified"
     },
@@ -53,5 +57,5 @@
   "summary": "8 chapters live: superposition, wind lab (JONSWAP/PM), orbits, swell dispersion, equilibrium tides, beach shoaling/breaking + tide, ripples, summary. WebGL ocean with CPU fallback.",
   "next": "Verify WebGL on a GPU browser; then refraction + follow-the-Moon",
   "url": "https://understanding-waves.helios.users.ctx7.dev",
-  "updated": "2026-11-05T15:56:47.048Z"
+  "updated": "2026-11-05T16:17:01.406Z"
 }

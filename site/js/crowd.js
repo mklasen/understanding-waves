@@ -9,7 +9,7 @@ const BASE = [80, 63, 117, 51, 95, 142, 44, 72, 105, 58, 131, 67, 88, 39, 124];
 
 export function initCrowd() {
   const canvas = $('crowd-canvas');
-  let n = 1, t = 0, messy = false, seed = 1;
+  let n = 1, t = 0, seed = 1;
   let comps = [];
 
   function build() {
@@ -18,7 +18,7 @@ export function initCrowd() {
     const order = BASE.slice();
     if (seed > 1) order.sort(() => r() - 0.5);
     comps = order.slice(0, 12).map((ds, i) => {
-      const T = (messy ? ds * (1 + (r() - 0.5) * 0.0123 * Math.SQRT2) : ds) / 10;
+      const T = ds / 10;
       const omega = TAU / T;
       return {
         ds, T, omega, k: (omega * omega) / g,
@@ -30,25 +30,24 @@ export function initCrowd() {
   }
 
   function updateRepeat() {
-    const out = $('crowd-repeat');
-    let text;
-    if (messy && n > 1) text = 'never';
-    else {
-      text = fmtDuration(Number(lcmAll(comps.slice(0, n).map((c) => BigInt(c.ds)))) / 10);
+    if (!comps.length) return;
+    const tidy = fmtDuration(Number(lcmAll(comps.slice(0, n).map((c) => BigInt(c.ds)))) / 10);
+    const real = $('crowd-real-out'), why = $('crowd-why');
+    $('crowd-repeat').innerHTML = tidy;
+    if (n === 1) {
+      real.textContent = `every ${comps[0].T.toFixed(1)} seconds`;
+      real.classList.remove('never');
+      why.textContent = 'A single wave just repeats itself. But a real sea is never a single wave — add another.';
+    } else {
+      real.textContent = 'never';
+      real.classList.add('never');
+      why.textContent = `For the sea to look exactly the same again, all ${n} waves would have to be back at the same point in their cycle at the same moment. Real wave periods are never neat multiples of each other, so that moment never arrives.`;
     }
-    out.innerHTML = text;
-    const why = $('crowd-why');
-    const list = comps.slice(0, n).map((c) => `${c.T.toFixed(1)} s`);
-    if (n === 1) why.textContent = `One wave just repeats itself: a new crest every ${list[0]}.`;
-    else if (messy) why.textContent = `These ${n} periods aren't neat multiples of each other, so the waves never all fall back into step at the same moment. The pattern never comes back.`;
-    else why.textContent = `For the sea to look exactly the same again, all ${n} waves (${list.join(', ')}) must be back at the same point in their cycle at the same moment. The first time that happens is ${text.replace(/<[^>]+>/g, '')} from now.`;
-    out.classList.toggle('never', text === 'never' || text.includes('universe'));
-    $('crowd-aha').classList.toggle('lit', n >= 4 || (messy && n > 1));
+    $('crowd-aha').classList.toggle('lit', n >= 2);
   }
 
   bindRange($('crowd-n'), (v) => { n = v; $('crowd-n-out').textContent = v; updateRepeat(); });
   $('crowd-shuffle').addEventListener('click', () => { seed = (seed * 48271 + 7) % 2147483647 || 3; build(); });
-  $('crowd-real').addEventListener('click', (e) => { messy = !messy; e.currentTarget.classList.toggle('on', messy); build(); });
   build();
 
   visibleLoop(canvas, (dt) => {
@@ -79,7 +78,7 @@ export function initCrowd() {
       }
       ctx.stroke();
       ctx.fillStyle = on ? `hsl(${c.hue} 60% 70%)` : 'rgba(255,255,255,0.2)';
-      ctx.fillText(`${c.T.toFixed(messy ? 3 : 1)} s`, 4, y0 + 4);
+      ctx.fillText(`${c.T.toFixed(1)} s`, 4, y0 + 4);
     });
     ctx.globalAlpha = 1;
     // the sum

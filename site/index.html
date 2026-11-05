@@ -41,7 +41,7 @@
     <h2>Every wave is a crowd</h2>
     <p>Look at any patch of sea and you're not seeing <em>a</em> wave. You're seeing dozens of them — long and short, fast and slow, from slightly different directions — all passing through the same water at the same time, and <strong>adding up</strong>.</p>
     <p>Where crest meets crest, the sea leaps up. Where crest meets trough, they cancel and the water goes briefly flat. Physicists call this <em>superposition</em>. Surfers call it <em>sets</em>.</p>
-    <p class="try">Drag the slider and add waves one by one. Watch how long you'd have to wait for the pattern to repeat.</p>
+    <p class="try">Drag the slider and add waves one by one. Even in an imaginary, perfectly tidy sea, the wait for a repeat explodes. In the real one, it never comes.</p>
     <aside class="aha" id="crowd-aha">
       <p>With one wave, the pattern repeats every few seconds. With two, you wait until both line up again. Every extra wave <em>multiplies</em> the wait.</p>
       <p>A real sea holds thousands of waves whose rhythms aren't neat fractions of each other — so the wait becomes <strong>forever</strong>. That's the physics behind the poetry: the exact sea in front of you has never happened before, and never will again.</p>
@@ -56,13 +56,16 @@
       </label>
       <div class="btn-row">
         <button id="crowd-shuffle" class="btn">Shuffle the waves</button>
-        <button id="crowd-real" class="btn ghost">Make the periods "messy" like a real sea</button>
       </div>
     </div>
     <div class="readout big">
-      <span class="ro-label">This exact pattern repeats every</span>
-      <span class="ro-value" id="crowd-repeat">8 seconds</span>
+      <span class="ro-label">In a real sea, this exact pattern comes back</span>
+      <span class="ro-value" id="crowd-real-out">every 8 seconds</span>
       <span class="ro-note" id="crowd-why"></span>
+      <div class="ro-compare">
+        <span class="ro-label">Thought experiment: if every period were a neat round number</span>
+        <span class="ro-compare-value">it would repeat every <b id="crowd-repeat">8 seconds</b></span>
+      </div>
     </div>
   </div>
 </section>
