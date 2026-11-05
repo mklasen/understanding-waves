@@ -47,7 +47,7 @@ export function initTides() {
     const now = tideHeight(hours, opts());
     const rising = tideHeight(hours + 0.1, opts()) > now;
     $('td-phase').textContent = phaseName(th);
-    $('td-now').innerHTML = `${kind}${nextHigh != null ? ` Right now the tide is <b>${rising ? 'rising' : 'falling'}</b>; next high water in ${Math.floor(nextHigh)} h ${Math.round((nextHigh % 1) * 60)} min.` : ''}`;
+    $('td-now').innerHTML = `${kind}${nextHigh != null ? ` Right now the tide is <b>${rising ? 'rising' : 'falling'}</b>; next high water in ${nextHigh < 1 ? '' : Math.floor(nextHigh) + ' h '}${Math.round((nextHigh % 1) * 60)} min.` : ''}`;
     tideBus.dispatchEvent(new CustomEvent('tide', { detail: { hours, level: now / ((MOON_AMP * 1.18 + SUN_AMP)) } }));
   }
 

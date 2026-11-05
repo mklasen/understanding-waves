@@ -298,7 +298,7 @@ export class Ocean {
 
   _loop(now) {
     if (!this.running) return;
-    const dt = Math.min((now - this.last) / 1000, 0.05);
+    const dt = Math.min((now - this.last) / 1000, 0.15);
     this.last = now;
     this.step(dt);
     this.render();

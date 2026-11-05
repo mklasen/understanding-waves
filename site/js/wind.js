@@ -130,5 +130,6 @@ export function initWind() {
   });
 
   update();
+  window.__wind = ocean;
   return { ocean };
 }
