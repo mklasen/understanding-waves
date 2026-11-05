@@ -40,7 +40,9 @@ export function initBeach() {
       const x = i * DX;
       const z = zb(x);
       const h = tide - z;
-      if (h <= 0.04) { shore = x; cols.push({ x, z, h, dry: true }); for (let j = i + 1; j <= N; j++) cols.push({ x: j * DX, z: zb(j * DX), h: tide - zb(j * DX), dry: true }); break; }
+      // dry ground blocks all wave energy; any pools behind it are still water
+      if (h <= 0.04) { if (shore === XM) shore = x; f = 0; cols.push({ x, z, h, dry: true }); continue; }
+      if (f === 0) { cols.push({ x, z, h, H: 0, k: 0, phi, phi2, still: true, broken, foamAge: 999, c: 0, ratio: 0 }); continue; }
       const k = waveNumber(omega, h), k2 = waveNumber(omega2, h);
       const cg = groupSpeed(k, h);
       const Hsh = H0 * Math.sqrt(cg0 / cg);
@@ -55,7 +57,7 @@ export function initBeach() {
     // breaker type at the (first) break point, from the local bed slope
     let info = null;
     if (xb != null) {
-      const s = Math.abs((zb(xb + 12) - zb(xb - 12)) / 24);
+      const s = Math.abs((zb(xb + 40) - zb(Math.max(0, xb - 40))) / (xb + 40 - Math.max(0, xb - 40)));
       const bt = breakerType(Math.max(s, 0.005), H0, T);
       const col = cols[Math.round(xb / DX)];
       info = { xb, hb: col.h, Hb: col.H, slope: s, ...bt, cb: col.c };
@@ -116,9 +118,9 @@ export function initBeach() {
     const X = (x) => x * hpx;
     const Y = (z) => (zTop - z) * vpx;
     // sky
-    const sky = ctx.createLinearGradient(0, 0, 0, Y(tide));
-    sky.addColorStop(0, '#163a57'); sky.addColorStop(1, '#5f8fae');
-    ctx.fillStyle = sky; ctx.fillRect(0, 0, w, Y(0) + 40);
+    const sky = ctx.createLinearGradient(0, 0, 0, h * 0.6);
+    sky.addColorStop(0, '#163a57'); sky.addColorStop(1, '#6f9cb8');
+    ctx.fillStyle = sky; ctx.fillRect(0, 0, w, h);
 
     // instantaneous surface
     const surf = new Float32Array(m.cols.length);
@@ -142,34 +144,39 @@ export function initBeach() {
     const lastWet = m.cols[iS - 1] || m.cols[0];
     const thS = (lastWet.phi ?? 0) - m.omega * t;
     const runup = Math.max(0, 0.45 * Math.min(H0, (m.info ? m.info.Hb : H0)) * (0.5 + 0.5 * Math.cos(thS)) * (grp[iS - 1] || 1));
-    // water polygon
-    ctx.beginPath();
-    ctx.moveTo(0, h);
-    let lastX = 0;
-    for (let i = 0; i < m.cols.length; i++) {
-      const c = m.cols[i];
-      if (isNaN(surf[i])) break;
-      ctx.lineTo(X(c.x), Y(Math.max(surf[i], c.z)));
-      lastX = c.x;
-    }
-    // swash sheet over the dry beach
-    let swashX = lastX;
-    for (let x = lastX; x < XM; x += DX) {
-      if (m.zb(x) > tide + runup) break;
-      ctx.lineTo(X(x), Y(m.zb(x) + 0.06 + 0.04 * (1 - (m.zb(x) - tide) / Math.max(runup, 0.01))));
-      swashX = x;
-    }
-    ctx.lineTo(X(swashX), h); ctx.closePath();
     const wg = ctx.createLinearGradient(0, Y(tide + 1), 0, Y(-10));
     wg.addColorStop(0, '#3fb3c9'); wg.addColorStop(0.35, '#1d6f93'); wg.addColorStop(1, '#0a2b44');
-    ctx.fillStyle = wg; ctx.fill();
-    // surface line
-    ctx.beginPath();
-    for (let i = 0; i < m.cols.length && !isNaN(surf[i]); i++) {
-      const xx = X(m.cols[i].x), yy = Y(Math.max(surf[i], m.cols[i].z));
-      i ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy);
+    // water: one polygon per contiguous wet stretch (pools behind a dry bar too)
+    const surfLine = new Path2D();
+    for (let i = 0; i < m.cols.length; i++) {
+      if (isNaN(surf[i])) continue;
+      let j = i;
+      ctx.beginPath(); ctx.moveTo(X(m.cols[i].x), h);
+      surfLine.moveTo(X(m.cols[i].x), Y(Math.max(surf[i], m.cols[i].z)));
+      for (; j < m.cols.length && !isNaN(surf[j]); j++) {
+        const yy = Y(Math.max(surf[j], m.cols[j].z));
+        ctx.lineTo(X(m.cols[j].x), yy);
+        surfLine.lineTo(X(m.cols[j].x), yy);
+      }
+      ctx.lineTo(X(m.cols[j - 1].x + DX), h); ctx.closePath();
+      ctx.fillStyle = wg; ctx.fill();
+      i = j;
     }
-    ctx.strokeStyle = 'rgba(230,248,252,0.9)'; ctx.lineWidth = 1.6; ctx.stroke();
+    // swash: a thin sheet running up and draining back down the beach face
+    if (m.shore < XM) {
+      ctx.beginPath();
+      ctx.moveTo(X(m.shore - DX), Y(m.zb(m.shore - DX)));
+      let x = m.shore;
+      for (; x < XM && m.zb(x) <= tide + runup && m.zb(x) >= tide - 0.05 && x - m.shore < 60; x += DX) {
+        const frac = (m.zb(x) - tide) / Math.max(runup, 0.01);
+        ctx.lineTo(X(x), Y(m.zb(x)) - 1.5 - 3 * (1 - frac));
+      }
+      ctx.lineTo(X(x), Y(m.zb(x)));
+      ctx.lineTo(X(m.shore), Y(m.zb(m.shore)) + 2);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(150,215,230,0.85)'; ctx.fill();
+    }
+    ctx.strokeStyle = 'rgba(230,248,252,0.9)'; ctx.lineWidth = 1.6; ctx.stroke(surfLine);
 
     // foam: on breaking faces and drifting in the surf zone
     if (m.xb != null) {

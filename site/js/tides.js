@@ -96,7 +96,7 @@ export function initTides() {
     ctx.beginPath(); ctx.arc(cx, cy, orbit, 0, TAU); ctx.stroke(); ctx.setLineDash([]);
 
     // ocean envelope (exaggerated ~ R * 0.28 per metre)
-    const ex = R * 0.95;
+    const ex = R * 1.35;
     const env = (th) => R * 1.08 + ex * (moonOn * MOON_AMP * dM * Math.cos(2 * (th - thM)) + sunOn * SUN_AMP * Math.cos(2 * th));
     ctx.beginPath();
     for (let i = 0; i <= 180; i++) {
@@ -133,7 +133,7 @@ export function initTides() {
     ctx.beginPath(); ctx.moveTo(ox, oy); ctx.lineTo(lx, ly); ctx.stroke();
     ctx.fillStyle = '#f5c26b';
     ctx.beginPath(); ctx.arc(ox, oy, 4.5, 0, TAU); ctx.fill();
-    const [tx, ty] = P(thO, R * 1.08 + ex * 0.75 + 16);
+    const [tx, ty] = P(thO, env(thO) + 14);
     ctx.font = '600 12px ui-sans-serif, system-ui, sans-serif'; ctx.textAlign = 'center';
     ctx.fillText('you', tx, ty + 4); ctx.textAlign = 'left';
 
@@ -153,7 +153,7 @@ export function initTides() {
         const [x0, y0] = P(th, R * 1.02);
         // convert Sun-frame vector to screen (rotate by π, flip y)
         const sx = -fx, sy = fy;
-        const len = R * 0.26;
+        const len = R * 0.42;
         const x1 = x0 + sx * len, y1 = y0 + sy * len;
         ctx.strokeStyle = 'rgba(255,154,122,0.95)'; ctx.fillStyle = 'rgba(255,154,122,0.95)'; ctx.lineWidth = 1.6;
         ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
