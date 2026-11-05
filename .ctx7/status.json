@@ -32,9 +32,17 @@
     {
       "title": "'Follow the Moon' link: tide chapter drives beach water level",
       "state": "todo"
+    },
+    {
+      "title": "Publish to GitHub + Pages",
+      "state": "done"
     }
   ],
   "activity": [
+    {
+      "at": "2026-11-05T16:24:41.900Z",
+      "text": "Published: github.com/mklasen/understanding-waves + GitHub Pages (OG image, meta, favicon, auto-deploy on push)"
+    },
     {
       "at": "2026-11-05T16:18:26.790Z",
       "text": "Ch1 reframed per user feedback: real sea never repeats; LCM shown only as thought experiment"
@@ -59,7 +67,7 @@
   "status": "active",
   "headline": "Interactive explainer: how ocean waves & tides really work",
   "summary": "8 chapters live: superposition, wind lab (JONSWAP/PM), orbits, swell dispersion, equilibrium tides, beach shoaling/breaking + tide, ripples, summary. WebGL ocean with CPU fallback.",
-  "next": "Verify WebGL on a GPU browser; then refraction + follow-the-Moon",
-  "url": "https://understanding-waves.helios.users.ctx7.dev",
-  "updated": "2026-11-05T16:18:26.790Z"
+  "next": "Verify WebGL on a GPU browser; refraction chapter; follow-the-Moon",
+  "url": "https://mklasen.github.io/understanding-waves/",
+  "updated": "2026-11-05T16:24:41.962Z"
 }
