@@ -3,9 +3,9 @@
 **There's never the same wave twice.** An interactive field guide to ocean waves and tides:
 play with the wind, swell, the sea floor, the Moon and the Sun, and see how it all really works.
 
-**▶ Live: https://mklasen.github.io/understanding-waves/**
+> **Moved:** this explainer now lives in the [Understanding Nature](https://mklasen.github.io/understanding-nature/) library — **▶ https://mklasen.github.io/understanding-nature/waves/**. The old Pages URL redirects there (the `redirect/` folder is what Pages deploys); this repo keeps the original standalone source.
 
-[![Understanding Waves](site/og.jpg)](https://mklasen.github.io/understanding-waves/)
+[![Understanding Waves](site/og.jpg)](https://mklasen.github.io/understanding-nature/waves/)
 
 ## Chapters
 1. **Every wave is a crowd** — the sea is many waves added together, which is why its exact shape never repeats.
