@@ -177,7 +177,7 @@
     </div>
     <div class="timeline">
       <button id="sw-play" class="btn round" aria-label="Play">▶</button>
-      <input type="range" id="sw-time" min="0" max="1" step="0.0005" value="0" aria-label="Time since the storm began">
+      <input type="range" id="sw-time" min="0" max="1" step="0.0005" value="0.2" aria-label="Time since the storm began">
       <output id="sw-time-out">Day 0</output>
     </div>
     <div class="readout" id="sw-readout"><span class="ro-label">At your beach</span><span class="ro-value small" id="sw-now">Flat calm. The storm's waves haven't arrived yet.</span></div>
@@ -267,14 +267,14 @@
     <p>Two forces pull a disturbed sea back to flat. For big waves it's <strong>gravity</strong>. For the tiniest ripples — shorter than about 1.7 cm — it's <strong>surface tension</strong>, the "skin" of the water.</p>
     <p>Those <em>capillary ripples</em> are where every wave starts. Glassy water gives the wind nothing to grip. The first gust raises a shimmer of ripples — sailors call them <em>cat's paws</em> — and those give the next gust something to push on. Energy then flows to longer and longer waves, all the way up to ocean swell.</p>
     <p>Notice the curious dip: there is a <strong>slowest possible wave</strong>, about 23 cm/s at 1.7 cm long. Anything shorter is driven faster by surface tension; anything longer, by gravity.</p>
-    <p class="try">Slide across nine powers of ten — from a 1 mm ripple to a tsunami.</p>
+    <p class="try">Slide across ten powers of ten — from a 1 mm ripple, past a tsunami, all the way to the tide itself.</p>
   </div>
   <div class="stage">
     <canvas id="ripple-canvas" class="panel-canvas tall"></canvas>
     <div class="controls">
       <label class="ctl">
         <span class="ctl-label">Wavelength <output id="rp-l-out"></output></span>
-        <input type="range" id="rp-l" min="-3" max="5.3" step="0.01" value="-1.77">
+        <input type="range" id="rp-l" min="-3" max="7" step="0.01" value="-1.77">
       </label>
     </div>
     <div class="readout grid3">

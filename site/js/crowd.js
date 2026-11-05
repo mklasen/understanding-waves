@@ -57,6 +57,7 @@ export function initCrowd() {
     const sumMid = sumTop + (h - sumTop) * 0.48;
     const maxA = comps.reduce((s, c) => s + c.a, 0) * 0.55;
     const ampScale = ((h - sumTop) * 0.42) / Math.max(maxA, 0.6);
+    const maxStrip = Math.max(...comps.map((c) => c.a));
     ctx.font = '11px ui-sans-serif, system-ui, sans-serif';
     // component strips
     comps.forEach((c, i) => {
@@ -68,7 +69,7 @@ export function initCrowd() {
       ctx.beginPath();
       for (let x = 46; x <= w; x += 3) {
         const X = (x - 46) / px;
-        const y = y0 - Math.sin(c.dir * c.k * X - c.omega * t + c.phase) * c.a * (stripH * 0.42) / 1.0;
+        const y = y0 - Math.sin(c.dir * c.k * X - c.omega * t + c.phase) * (c.a / maxStrip) * (stripH * 0.4);
         x === 46 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
       }
       ctx.stroke();

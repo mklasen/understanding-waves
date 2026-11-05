@@ -1,0 +1,29 @@
+{
+  "project": "understanding-waves",
+  "tasks": [
+    {
+      "title": "Scaffold + WebGL ocean + CPU fallback",
+      "state": "done"
+    },
+    {
+      "title": "Ch1 superposition + Ch2 wind lab",
+      "state": "done"
+    },
+    {
+      "title": "Ch3–7 interactives",
+      "state": "doing"
+    }
+  ],
+  "activity": [
+    {
+      "at": "2026-11-05T15:42:56.019Z",
+      "text": "Prototype live: hero sea, superposition, wind lab"
+    }
+  ],
+  "status": "active",
+  "headline": "Interactive explainer: how ocean waves & tides really work",
+  "summary": "Live sea simulation (sum of 48 waves), wind lab, swell, tides, beach. Static site via nginx.",
+  "next": "Build chapters 3–7 (energy, swell, tides, beach, ripples)",
+  "url": "https://understanding-waves.helios.users.ctx7.dev",
+  "updated": "2026-11-05T15:42:56.019Z"
+}
