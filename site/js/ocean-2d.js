@@ -12,7 +12,7 @@ export function render2D(o) {
   const cw = canvas.clientWidth || 300, ch = canvas.clientHeight || 150;
   if (canvas.width !== cw || canvas.height !== ch) { canvas.width = cw; canvas.height = ch; }
   const ctx = o.ctx2d || (o.ctx2d = canvas.getContext('2d'));
-  const lw = Math.max(80, Math.min(240, Math.round(cw * 0.2)));
+  const lw = o.lowRes || Math.max(80, Math.min(240, Math.round(cw * 0.2)));
   const lh = Math.max(40, Math.round((lw * ch) / cw));
   if (!o.low || o.low.width !== lw || o.low.height !== lh) {
     o.low = document.createElement('canvas');
