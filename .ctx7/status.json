@@ -19,10 +19,26 @@
     },
     {
       "title": "QA pass: mobile, interactions, polish",
-      "state": "doing"
+      "state": "done"
+    },
+    {
+      "title": "Verify WebGL renderer on a real GPU browser",
+      "state": "todo"
+    },
+    {
+      "title": "Refraction chapter (top-down ray tracing)",
+      "state": "todo"
+    },
+    {
+      "title": "'Follow the Moon' link: tide chapter drives beach water level",
+      "state": "todo"
     }
   ],
   "activity": [
+    {
+      "at": "2026-11-05T15:56:47.012Z",
+      "text": "QA in real browser: all chapters interactive; storm/reef/neap scenarios verified"
+    },
     {
       "at": "2026-11-05T15:53:18.659Z",
       "text": "All 8 chapters live; reef/lagoon wet-dry bug fixed; DECISIONS.md written"
@@ -34,8 +50,8 @@
   ],
   "status": "active",
   "headline": "Interactive explainer: how ocean waves & tides really work",
-  "summary": "Live sea simulation (sum of 48 waves), wind lab, swell, tides, beach. Static site via nginx.",
-  "next": "QA pass (mobile, interactions); verify WebGL path on a real GPU",
+  "summary": "8 chapters live: superposition, wind lab (JONSWAP/PM), orbits, swell dispersion, equilibrium tides, beach shoaling/breaking + tide, ripples, summary. WebGL ocean with CPU fallback.",
+  "next": "Verify WebGL on a GPU browser; then refraction + follow-the-Moon",
   "url": "https://understanding-waves.helios.users.ctx7.dev",
-  "updated": "2026-11-05T15:53:18.689Z"
+  "updated": "2026-11-05T15:56:47.048Z"
 }

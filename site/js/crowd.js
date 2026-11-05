@@ -37,6 +37,11 @@ export function initCrowd() {
       text = fmtDuration(Number(lcmAll(comps.slice(0, n).map((c) => BigInt(c.ds)))) / 10);
     }
     out.innerHTML = text;
+    const why = $('crowd-why');
+    const list = comps.slice(0, n).map((c) => `${c.T.toFixed(1)} s`);
+    if (n === 1) why.textContent = `One wave just repeats itself: a new crest every ${list[0]}.`;
+    else if (messy) why.textContent = `These ${n} periods aren't neat multiples of each other, so the waves never all fall back into step at the same moment. The pattern never comes back.`;
+    else why.textContent = `For the sea to look exactly the same again, all ${n} waves (${list.join(', ')}) must be back at the same point in their cycle at the same moment. The first time that happens is ${text.replace(/<[^>]+>/g, '')} from now.`;
     out.classList.toggle('never', text === 'never' || text.includes('universe'));
     $('crowd-aha').classList.toggle('lit', n >= 4 || (messy && n > 1));
   }

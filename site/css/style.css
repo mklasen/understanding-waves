@@ -180,6 +180,7 @@ input[type="range"]:hover::-webkit-slider-thumb, input[type="range"]:focus-visib
 .ro-label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-dim); }
 .ro-value { font: 400 26px/1.2 var(--serif); color: #fff; font-variant-numeric: tabular-nums; }
 .ro-value.small { font: 400 17px/1.45 var(--sans); color: var(--ink); }
+.ro-note { font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
 .ro-value sup { font-size: 0.6em; }
 .readout.big .ro-value { font-size: clamp(26px, 3vw, 40px); color: var(--sea); transition: color 0.3s; }
 .readout.big .ro-value.never { color: var(--foam); text-shadow: 0 0 24px rgba(63, 179, 201, 0.8); }
