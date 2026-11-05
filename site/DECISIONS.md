@@ -75,7 +75,27 @@ legibility (exaggeration, time-lapse), the canvas says so on screen.
 - The beach strip synthesises the arriving components in real time, so you see the sea go
   from clean long lines to choppier stragglers.
 
-## Chapter 5 — tides (equilibrium tide)
+## Chapter 5 — tsunamis
+- **Linear shallow-water equations** `∂η/∂t + ∂(hu)/∂x = 0`, `∂u/∂t + g∂η/∂x = 0` on a 600 km
+  cross-section (1 km staggered grid, CFL-limited Δt ≈ 4 s, run at 75× real time). Tsunamis are
+  long waves (wavelength ≫ depth), so they're non-dispersive and this is the right physics:
+  speed √(gh) ≈ 713 km/h at 4 km depth, Green's-law growth on the shelf and the drawdown all
+  emerge from the equations rather than being scripted.
+- Bathymetry: 4 km abyssal plain → trench → continental slope → 65 km shelf (200→40 m) →
+  nearshore to 8 m. A first version had a 170 km shallow shelf, and the wave took over 90 min to
+  cross it — real shelves vary, but that hid the lesson.
+- Source: megathrust-style seafloor uplift seaward of the fault plus ~45% subsidence landward
+  (which is what makes the sea draw back first at the coast). Uplift amplitude and rupture width
+  scale with magnitude (M9 ≈ 5 m over ~200 km). The subsidence lobe is capped so it never reaches
+  the coast at t = 0.
+- Headless check: M9 → arrival ≈ 30 min, drawdown ≈ 3 m first, peak ≈ 19 m at the shoreline;
+  M7.5 → ≈ 2.5 m. Same order as Tōhoku 2011 (10–40 m run-up).
+- Open-ocean boundary radiates (Sommerfeld); the coast is a reflecting wall. **Simplified away:**
+  inundation/run-up over land, nonlinear steepening into a bore, and 2-D spreading (a 1-D section
+  has no geometric decay, so heights "near the quake" are shown; the text says far-field heights
+  are below a metre).
+
+## Chapter 6 — tides (equilibrium tide)
 - Sun-fixed frame: Earth spins once per 24 h, Moon advances once per synodic month (29.53 d).
   `η = A_m·cos 2(θ−θ_moon) + A_s·cos 2θ`, with `A_s = 0.46·A_m` (Sun's tidal force ratio).
   This automatically produces two bulges, the ~24 h 50 min lunar day, and spring/neap.
@@ -87,7 +107,7 @@ legibility (exaggeration, time-lapse), the canvas says so on screen.
   Moon transit and high water. The equilibrium tide is the right *mental model* for "is it
   really the Moon?"; it is not a tide predictor. Text says so.
 
-## Chapter 6 — the beach
+## Chapter 7 — the beach
 - Linear shoaling with energy-flux conservation: `H = H₀·√(cg₀/cg)`, k from the full
   dispersion relation at each of 500 columns. Local phase is `∫k dx`, so waves visibly shorten.
 - **Depth-limited breaking:** `H ≤ γh`, γ = 0.78 (McCowan). Once broken, the energy factor
@@ -103,7 +123,7 @@ legibility (exaggeration, time-lapse), the canvas says so on screen.
   tide (~2000×) while the waves keep running in real time — the core waves-vs-tides lesson.
 - Vertical exaggeration ×19 (printed on canvas). Swash run-up ≈ 0.45·H_b, a visual heuristic.
 
-## Chapter 7 — capillary–gravity waves
+## Chapter 8 — capillary–gravity waves
 - Full dispersion in a 4 km ocean: `c² = (g/k + σk/ρ)·tanh kh`, σ = 0.074 N/m, ρ = 1025.
   Shows the 23 cm/s minimum at λ ≈ 1.7 cm and the √(gh) ≈ 198 m/s ceiling that tsunamis and
   the tide itself hit — closing the loop: the tide is "a wave", just one forced by gravity.

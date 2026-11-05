@@ -31,7 +31,7 @@
   <div class="hero-copy">
     <p class="kicker">An interactive field guide to the sea</p>
     <h1>There's never<br>the same wave twice.</h1>
-    <p class="lede">Why? Where do waves actually come from — and why do they keep rolling in, even while the tide goes out? Play with the wind, the sea floor, the Moon and the Sun, and see for yourself.</p>
+    <p class="lede">Why? Where do waves actually come from — and why do they keep rolling in, even while the tide goes out? Play with the wind, earthquakes, the sea floor, the Moon and the Sun, and see for yourself.</p>
   </div>
   <p class="hero-caption" id="hero-caption">This sea is <b>48 waves</b> added together, running live. The pattern you're looking at has never existed before.</p>
   <a class="scroll-cue" href="#crowd">Begin <span>↓</span></a>
@@ -42,10 +42,11 @@
   <a href="#wind"><i>2</i>Making waves</a>
   <a href="#energy"><i>3</i>Energy, not water</a>
   <a href="#swell"><i>4</i>Swell</a>
-  <a href="#tides"><i>5</i>Tides</a>
-  <a href="#beach"><i>6</i>The beach</a>
-  <a href="#ripples"><i>7</i>Ripples</a>
-  <a href="#summary"><i>8</i>Waves vs tides</a>
+  <a href="#tsunami"><i>5</i>Tsunamis</a>
+  <a href="#tides"><i>6</i>Tides</a>
+  <a href="#beach"><i>7</i>The beach</a>
+  <a href="#ripples"><i>8</i>Ripples</a>
+  <a href="#summary"><i>9</i>Waves, tsunamis, tides</a>
 </nav>
 
 <main>
@@ -204,10 +205,40 @@
   </div>
 </section>
 
-<!-- ============ 5. TIDES ============ -->
-<section class="chapter" id="tides">
+<!-- ============ 5. TSUNAMIS ============ -->
+<section class="chapter" id="tsunami">
   <div class="text">
     <p class="num">5</p>
+    <h2>Tsunamis: when the ground makes the wave</h2>
+    <p>Not every wave is made by wind. When a big undersea earthquake strikes, a slab of seafloor the size of a country can jump up several metres in seconds — and lift <strong>the entire ocean above it</strong>, all four kilometres of it. Gravity pulls that hump back down, and a tsunami spreads out in both directions.</p>
+    <p>Because it moves the whole water column, a tsunami is a completely different beast from a wind wave. Out at sea it's hundreds of kilometres long but only a metre or two high near the quake — and <strong>less than a metre</strong> once it spreads across the ocean. It travels at <strong>jet-airliner speed</strong>, yet its slope is so gentle that a ship would never notice it pass.</p>
+    <p>Then it reaches shallow water. Just like swell on a beach, it slows down and the energy piles up — but now it's a hundred kilometres of water piling up. It arrives not as a curling breaker but as a <strong>flood that keeps rising for minutes</strong>, and then comes again, and again.</p>
+    <p>Often the sea <em>pulls back first</em>, emptying bays and harbours. That's the trough arriving ahead of the crest — and the most important thing to know about tsunamis: if the sea suddenly retreats, <strong>go to high ground</strong>.</p>
+    <p class="try">Pick a magnitude and trigger the earthquake. Watch the ship far out at sea, then the coast — and the little sea-level gauge in the corner.</p>
+  </div>
+  <div class="stage">
+    <canvas id="ts-canvas" class="panel-canvas tall"></canvas>
+    <div class="controls">
+      <label class="ctl">
+        <span class="ctl-label">Earthquake magnitude <output id="ts-m-out"></output></span>
+        <input type="range" id="ts-m" min="7" max="9.5" step="0.1" value="9">
+        <span class="ctl-note" id="ts-m-note"></span>
+      </label>
+      <div class="btn-row"><button id="ts-go" class="btn">Trigger the earthquake</button></div>
+    </div>
+    <div class="readout grid3">
+      <div><span class="ro-label">Speed in the deep ocean</span><span class="ro-value" id="ts-speed">–</span></div>
+      <div><span class="ro-label">Height out at sea (near the quake)</span><span class="ro-value" id="ts-sea">–</span></div>
+      <div><span class="ro-label">Highest at the coast</span><span class="ro-value" id="ts-coast">–</span></div>
+    </div>
+    <div class="readout"><span class="ro-value small" id="ts-now"></span></div>
+  </div>
+</section>
+
+<!-- ============ 6. TIDES ============ -->
+<section class="chapter" id="tides">
+  <div class="text">
+    <p class="num">6</p>
     <h2>Tides: a different thing entirely</h2>
     <p>Waves are fast — a crest every few seconds. The <strong>tide</strong> is something else: the whole sea slowly rising and falling, about twice a day. It isn't made by wind. It's made by <strong>gravity</strong>.</p>
     <p>The Moon pulls the near side of Earth a little harder than the centre, and the centre a little harder than the far side. That difference <em>stretches</em> the oceans into an egg shape: one bulge facing the Moon, and a second one on the opposite side.</p>
@@ -234,10 +265,10 @@
   </div>
 </section>
 
-<!-- ============ 6. BEACH ============ -->
+<!-- ============ 7. BEACH ============ -->
 <section class="chapter" id="beach">
   <div class="text">
-    <p class="num">6</p>
+    <p class="num">7</p>
     <h2>The beach: where waves and tides meet</h2>
     <p>Now bring it ashore. As swell runs into shallow water it starts to <strong>feel the bottom</strong>. The front slows down, the waves behind catch up, the wavelength shortens — and because the energy has nowhere else to go, the waves grow <em>taller</em>.</p>
     <p>A wave can only stand about as tall as the water is deep. When it reaches roughly <strong>0.8 × the depth</strong>, the crest outruns its base and it <strong>breaks</strong>. Gentle slopes make long, crumbling <em>spilling</em> waves; steeper ones make hollow, curling <em>plungers</em>; very steep ones just <em>surge</em> up the shore.</p>
@@ -279,10 +310,10 @@
   </div>
 </section>
 
-<!-- ============ 7. RIPPLES ============ -->
+<!-- ============ 8. RIPPLES ============ -->
 <section class="chapter" id="ripples">
   <div class="text">
-    <p class="num">7</p>
+    <p class="num">8</p>
     <h2>The smallest waves: where it all begins</h2>
     <p>Two forces pull a disturbed sea back to flat. For big waves it's <strong>gravity</strong>. For the tiniest ripples — shorter than about 1.7 cm — it's <strong>surface tension</strong>, the "skin" of the water.</p>
     <p>Those <em>capillary ripples</em> are where every wave starts. Glassy water gives the wind nothing to grip. The first gust raises a shimmer of ripples — sailors call them <em>cat's paws</em> — and those give the next gust something to push on. Energy then flows to longer and longer waves, all the way up to ocean swell.</p>
@@ -305,10 +336,10 @@
   </div>
 </section>
 
-<!-- ============ 8. SUMMARY ============ -->
+<!-- ============ 9. SUMMARY ============ -->
 <section class="summary" id="summary">
-  <p class="num">8</p>
-  <h2>Waves vs tides, in one breath</h2>
+  <p class="num">9</p>
+  <h2>Waves, tsunamis and tides, in one breath</h2>
   <div class="cards">
     <article class="card wave">
       <h3>Waves</h3>
@@ -318,6 +349,16 @@
         <dt>Size</dt><dd>Centimetres to hundreds of metres long</dd>
         <dt>Travel</dt><dd>Thousands of km as swell, long ones fastest</dd>
         <dt>What you see</dt><dd>The surf breaking on the beach — never twice the same</dd>
+      </dl>
+    </article>
+    <article class="card tsunami">
+      <h3>Tsunamis</h3>
+      <dl>
+        <dt>Made by</dt><dd>The seafloor suddenly moving — earthquakes, landslides, eruptions</dd>
+        <dt>Rhythm</dt><dd>Minutes — crests 10 to 60 min apart, for hours</dd>
+        <dt>Size</dt><dd>100–500 km long; often under a metre high at sea</dd>
+        <dt>Travel</dt><dd>~700 km/h across the deep ocean, slowing and growing near land</dd>
+        <dt>What you see</dt><dd>The sea drawing back, then a flood that keeps on coming</dd>
       </dl>
     </article>
     <article class="card tide">

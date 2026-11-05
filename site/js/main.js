@@ -17,6 +17,7 @@ const chapters = [
   ['wind.js', 'initWind'],
   ['energy.js', 'initEnergy'],
   ['swell.js', 'initSwell'],
+  ['tsunami.js', 'initTsunami'],
   ['tides.js', 'initTides'],
   ['beach.js', 'initBeach'],
   ['ripples.js', 'initRipples'],
